@@ -1,0 +1,21 @@
+{extends file="application/views/templates/layout.tpl"}
+{block name=title}{'Вход в админ панель'}{/block}
+{block name=body}
+    <h2>Вход в админ панель</h2>
+    <form action="admin" method="post">
+        <div class="form-group">
+            <label for="name">Логин</label>
+            <input type="text" class="form-control" id="name" name="login" placeholder="Логин">
+        </div>
+        <div class="form-group">
+            <label for="password">Пароль</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Пароль">
+        </div>
+        <button type="submit" class="btn btn-default">Вход</button>
+    </form>
+    <br>
+    {if isset($error)}
+    <p class="text-danger">Неправильно введены логин или пароль</p>
+    {/if}
+    <a href="/news"><i>К новостям</i></a>
+{/block}

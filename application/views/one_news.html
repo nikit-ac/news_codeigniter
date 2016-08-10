@@ -1,0 +1,33 @@
+{extends file="application/views/templates/layout.tpl"}
+{block name=title}{$title}{/block}
+{block name=body}
+
+    <h2>{$title}</h2>
+
+    {if isset($image_name)}
+        <div><img src="/application/uploads/{$image_name}"></div>
+    {/if}
+
+    <p><i>{$time_update}</i></p>
+    <pre class="one_news__content">{$content}</pre>
+
+    {if isset($admin)}
+        <a class="btn btn-success" href="/admin/edit/{$slug}" role="button"><span class="glyphicon glyphicon-pencil"></span> Редактировать новость</a>
+        <a class="btn btn-danger" href="#delete" role="button"  data-toggle="modal"><span class="glyphicon glyphicon-remove"></span> Удалить новость</a>
+
+        <!-- Modal Delete -->
+        <div class="modal fade " id="delete" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <h4>Вы действительно хотите удалить новость <strong>"{$title}"</strong>? </h4>
+                        <a class="btn btn-danger" href="/admin/delete/{$slug}" role="button">Да</a>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Нет</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+
+    {/if}
+    <a href="/news"><i>Вернуться к остальным</i></a>
+{/block}

@@ -1,0 +1,54 @@
+{extends file="application/views/templates/layout.tpl"}
+{block name=body}
+    <ul class="nav nav-pills">
+        <li {if $active_cat === 0}class="active"{/if}><a href="/last_news/">Все</a></li>
+        <li {if $active_cat === 'politics'}class="active"{/if}><a href="/last_news/politics">Политика</a></li>
+        <li {if $active_cat === 'criminal'}class="active"{/if}><a href="/last_news/criminal">Криминал</a></li>
+        <li {if $active_cat === 'finanse'}class="active"{/if}><a href="/last_news/finanse">Финансы</a></li>
+        <li {if $active_cat === 'other'}class="active"{/if}><a href="/last_news/other">Прочее</a></li>
+    </ul>
+
+<h2>Последние новости</h2>
+
+{if isset($admin)}
+<p>
+    <a class="btn btn-success" href="/admin/create" role="button"><span class="glyphicon glyphicon-plus"></span> Добавить новость</a>
+</p>
+{/if}
+
+{if isset($data)}
+    {foreach from=$data item=item}
+    <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            {$item.title}
+            {if isset($admin)}
+                <a href="/admin/edit/{$item.slug}"><span class='glyphicon glyphicon-pencil'></span></a>
+                <a href="/news/{$item.slug}"><span class='glyphicon glyphicon-remove'></span></a>
+            {/if}
+            <br>
+            <i class="small">Категория: {$item.category}</i>
+        </h3>
+    </div>
+    <div class="panel-body">
+        <p><i>{$item.time_update}</i></p>
+        {if isset($item.image_name)}
+        <img src="/application/uploads/{$item.image_name}" alt="{$item.image_name}" class="img-rounded" height="200">
+        {/if}
+        <p>{$item.content}<a href="/news/{$item.slug}"><i>Читать далее</i></a></p>
+    </div>
+    </div>
+    {/foreach}
+{/if}
+
+{if $pages_count > 1}
+    <ul class="pagination">
+        <li {if $page == 1} class="disabled" {/if}><a href="{if $page != 1}/last_news/{if !($active_cat === 0)}{$active_cat}/{/if}{$page-1}{/if}">&laquo;</a></li>
+            {for $i=1 to $pages_count}
+                <li {if $page == $i} class="active" {/if}><a href="/last_news/{if !($active_cat === 0)}{$active_cat}/{/if}{$i}">{$i}</a></li>
+            {/for}
+        <li {if $page == $pages_count} class="disabled" {/if}><a href="{if $page != $pages_count}/last_news/{if !($active_cat === 0)}{$active_cat}/{/if}{$page+1}{/if}">&raquo;</a></li>
+    </ul>
+{/if}
+{/block}
+

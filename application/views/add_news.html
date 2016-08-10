@@ -1,0 +1,43 @@
+{extends file="application/views/templates/layout.tpl"}
+{block name=title}Добавление / редактирование новости{/block}
+{block name=body}
+    <h2>Добавление / редактирование новости</h2>
+    <form action="{$action}" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="title">Название новости</label>
+            <input type="text" class="form-control span6" id="title" name="title" placeholder="Название новости" value="{$title|default:""}">
+        </div>
+        <div class="form-group">
+            <label for="content">Текст новости</label>
+            <textarea rows="5" id="content" name="content" placeholder="Текст новости" class="form-control span6">{$content|default:""}</textarea>
+        </div>
+        <div class="form-group">
+            <label for="category">Выбор категории</label>
+            <select id="category" class="form-control span6" name="category">
+                <option value="4">Политика</option>
+                <option value="3">Криминал</option>
+                <option value="2">Финансы</option>
+                <option value="1">Прочее</option>
+            </select>
+        </div>
+        {if isset($image_name)}
+            <div class="form-group">
+                <label class="radio">
+                    <input type="radio" name="image_edit" value="old" checked>
+                    Оставить старое изображение<br>
+                    <img src="/application/uploads/{$image_name}" alt="{$image_name}" class="img-rounded" height="200">
+                </label>
+                <label class="radio">
+                    <input type="radio" name="image_edit" value="new">
+                    Заменить новым
+                </label>
+            </div>
+        {/if}
+        <div class="form-group">
+            <label for="file">Загрузить изображение</label>
+            <input type="file" id="file" name="pic">
+        </div>
+        <button type="submit" class="btn btn-default">Опубликовать</button>
+        <a class="btn btn-default" href="/news" role="button">Назад</a>
+    </form>
+{/block}
