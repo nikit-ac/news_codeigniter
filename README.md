@@ -73,7 +73,7 @@ $config['base_url'] = 'http://codeigniter_news.com/';
 Для входа в раздел администратора введите *site.com/admin (*где site.com - адрес главной страницы сайта).
 Для изменения логина и пароля отредактируйте в файле строки
 
-./application/models/admin_model.php *!!!!!!!!!!!!!исправить
+./application/models/admin_model.php 
 
     const LOGIN = "admin";
     const PASSWORD = "admin";
