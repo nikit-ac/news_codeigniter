@@ -1,6 +1,9 @@
 <?php
 class Admin_model extends CI_Model {
 
+    const LOGIN = "admin";
+    const PASSWORD = "admin";
+
     function create_news($title, $content, $category, $image_name = NULL)
     {
         $this->title    = trim($title);
@@ -35,6 +38,15 @@ class Admin_model extends CI_Model {
     function delete_news($slug)
     {
         return $this->db->delete('news', array('slug' => $slug));
+    }
+
+    function check_login($login, $password)
+    {
+        if (($login == self::LOGIN) && ($password == self::PASSWORD)){
+            return TRUE;
+        } else {
+            return FALSE;
+        }
     }
 
 }

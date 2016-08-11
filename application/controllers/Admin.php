@@ -2,8 +2,6 @@
 
 class Admin extends CI_Controller
 {
-    const LOGIN = "admin";
-    const PASSWORD = "admin";
 
     private $is_admin = FALSE;
 
@@ -22,12 +20,14 @@ class Admin extends CI_Controller
         if(!$this->input->post()){
             $this->parse->view("regform");
         } else {
-            if( ($this->input->post('login') != self::LOGIN) or ($this->input->post('password') != self::PASSWORD) ) {
-                $this->parse->assign('error', TRUE);
-                $this->parse->view("regform");
-            }else{
+            $login    = $this->input->post('login');
+            $password = $this->input->post('password');
+            if($this->Admin_model->check_login($login, $password)) {
                 $this->session->set_userdata('is_admin', '1');
                 redirect(base_url());
+            }else{
+                $this->parse->assign('error', TRUE);
+                $this->parse->view("regform");
             }
         }
     }
